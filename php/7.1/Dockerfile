@@ -19,7 +19,8 @@ RUN DEBIAN_FRONTEND=noninteractive && \
     php7.1-imagick \
     php7.1-opcache \
     php7.1-curl \
-    php7.1-yaml
+    php7.1-yaml && \
+    update-alternatives --set php /usr/bin/php7.1
 
 RUN DEBIAN_FRONTEND=noninteractive && \
     curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh && \

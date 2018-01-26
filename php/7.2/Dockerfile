@@ -1,23 +1,32 @@
 FROM ubuntu:16.04
 
-RUN DEBIAN_FRONTEND=noninteractive LC_ALL=C.UTF-8 apt-get update && \
+RUN DEBIAN_FRONTEND=noninteractive LC_ALL=C.UTF-8 && \
+    apt-get update && \
     apt-get dist-upgrade && \
-    apt-get install software-properties-common -y && \
+    apt-get install software-properties-common build-essential git curl -y && \
     LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php && \
     apt-get update
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        php \
-        php-intl \
-        php-xml \
-        php-mysql \
-        php-mbstring \
-        php-gd \
-        php-zip \
-        php-imagick \
-        php7.2-opcache \
-        php-curl \
-        php-yaml
+RUN DEBIAN_FRONTEND=noninteractive && \
+    apt-get install -y \
+    php7.2 \
+    php7.2-intl \
+    php7.2-xml \
+    php7.2-mysql \
+    php7.2-mbstring \
+    php7.2-gd \
+    php7.2-zip \
+    php7.2-imagick \
+    php7.2-opcache \
+    php7.2-curl \
+    php7.2-yaml
+
+RUN DEBIAN_FRONTEND=noninteractive && \
+    curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh && \
+    bash nodesource_setup.sh && \
+    apt-get install nodejs -y
+
+RUN npm install -g yarn
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php && \

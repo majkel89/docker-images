@@ -7,6 +7,13 @@ RUN DEBIAN_FRONTEND=noninteractive LC_ALL=C.UTF-8 && \
     LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php && \
     apt-get update
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get install xvfb libfontconfig xorg wget -y && \
+    wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
+    tar xf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
+    rm wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
+    ln -s /wkhtmltox/bin/wkhtmltopdf /usr/bin/wkhtmltopdf && \
+    ln -s /wkhtmltox/bin/wkhtmltoimage /usr/bin/wkhtmltoimaged
+
 RUN DEBIAN_FRONTEND=noninteractive && \
     apt-get install -y \
     php7.1 \
